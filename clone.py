@@ -15,9 +15,12 @@ for line in lines:
 	source_path = line[0]
 	filename = source_path.split('/')[-1]
 	current_path = 'drive_data/center/IMG/' + filename
-	image = cv2.imread 
+	image = cv2.imread(current_path, 1)
 	images.append(image)
 	measurements.append(float(line[3]))
+	# print(current_path)
+
+print(images[0].shape)
 
 X_train = np.array(images)
 y_train = np.array(measurements)
@@ -26,7 +29,7 @@ from keras.models import Sequential
 from keras.layers import Flatten, Dense
 
 model = Sequential()
-model.add(Flatten(input_shape(160,320,3)))
+model.add(Flatten(input_shape=(160,320,3)))
 model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')

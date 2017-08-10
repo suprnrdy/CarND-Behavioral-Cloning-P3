@@ -25,11 +25,17 @@ print(images[0].shape)
 X_train = np.array(images)
 y_train = np.array(measurements)
 
+# Initial Setup for Keras
 from keras.models import Sequential
-from keras.layers import Flatten, Dense
+from keras.layers.core import Dense, Activation, Flatten, Dropout
+from keras.layers.convolutional import Convolution2D
+from keras.layers.pooling import MaxPooling2D
 
 model = Sequential()
-model.add(Flatten(input_shape=(160,320,3)))
+model.add(Convolution2D(32, 3, 1, input_shape=(160, 320, 3)))
+model.add(Dropout(0.5))
+model.add(Activation('relu'))
+model.add(Flatten())
 model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
